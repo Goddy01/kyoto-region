@@ -125,7 +125,7 @@ export function PageHero({
   const reduce = useReducedMotion();
 
   return (
-    <div className="relative overflow-hidden border-b border-white/5 pt-32 pb-20 md:pt-40 md:pb-28">
+    <div className="relative overflow-hidden border-b border-white/5 pt-28 pb-12 md:pt-32 md:pb-16">
       <motion.div
         aria-hidden
         className="sakura-glow absolute inset-0"
@@ -135,15 +135,9 @@ export function PageHero({
       />
       <div className="pattern-asanoha absolute inset-0 opacity-40" />
       <div className="scanlines absolute inset-0 opacity-25" />
-      <div className="pointer-events-none absolute inset-8 md:inset-12" aria-hidden>
-        <span className="hud-corner hud-corner-tl" />
-        <span className="hud-corner hud-corner-tr" />
-        <span className="hud-corner hud-corner-bl" />
-        <span className="hud-corner hud-corner-br" />
-      </div>
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <ClipReveal>
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.28em] text-accent">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.28em] text-accent">
             {eyebrow}
           </p>
         </ClipReveal>
@@ -156,7 +150,7 @@ export function PageHero({
           {title}
         </motion.h1>
         <ClipReveal delay={0.25}>
-          <p className="mt-6 max-w-xl text-base text-muted md:text-lg">
+          <p className="mt-4 max-w-xl text-base text-muted md:text-lg">
             {description}
           </p>
         </ClipReveal>

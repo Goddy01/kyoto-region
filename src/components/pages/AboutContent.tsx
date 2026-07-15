@@ -56,19 +56,19 @@ export function AboutContent() {
         <div className="relative space-y-0">
           <div
             aria-hidden
-            className="absolute top-0 bottom-0 left-0 w-px bg-gradient-to-b from-accent via-white/10 to-transparent md:left-24"
+            className="absolute top-0 bottom-0 left-[0.2rem] w-px bg-gradient-to-b from-accent via-white/10 to-transparent md:left-28"
           />
           {milestones.map((m, i) => (
             <FadeUp key={`${m.year}-${m.title}`} delay={i * 0.06}>
-              <div className="relative grid gap-4 py-10 pl-8 md:grid-cols-[6rem_1fr] md:pl-0">
-                <div className="md:text-right">
+              <div className="relative grid gap-4 py-10 pl-8 md:grid-cols-[7rem_1fr] md:gap-10 md:pl-0">
+                <span
+                  aria-hidden
+                  className="absolute top-[2.85rem] left-[0.2rem] z-10 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-accent md:top-[2.9rem] md:left-28"
+                />
+                <div className="md:pr-2 md:text-right">
                   <span className="font-display text-accent">{m.year}</span>
                 </div>
-                <div className="relative md:pl-16">
-                  <span
-                    aria-hidden
-                    className="absolute top-2 -left-[1.65rem] h-2.5 w-2.5 rounded-full bg-accent md:-left-[2.15rem]"
-                  />
+                <div>
                   <h3 className="font-display text-2xl tracking-tight">
                     {m.title}
                   </h3>

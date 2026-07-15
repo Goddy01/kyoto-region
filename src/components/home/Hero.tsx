@@ -1,12 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { SakuraParticles } from "@/components/ui/SakuraParticles";
-import { siteConfig } from "@/data/site";
 import { easeExpoOut } from "@/lib/motion";
+import { cn } from "@/lib/cn";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -68,50 +68,50 @@ export function Hero() {
 
       <motion.div
         style={reduce ? undefined : { y, opacity }}
-        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col items-center px-6 pt-28 pb-10 text-center md:pt-32 md:pb-12 lg:px-8"
+        className="relative z-10 flex min-h-[100svh] w-full flex-col"
       >
-        <div className="flex flex-1 flex-col items-center justify-center py-10 md:py-12">
-          <h1 className="hero-title mx-auto text-foreground">
-            {["KYOTO", "REGION"].map((word, wi) => (
-              <span
-                key={word}
-                className="block overflow-hidden pb-[0.04em] pr-[0.18em]"
+        {/* True viewport-centered content axis */}
+        <div className="flex flex-1 items-center justify-center px-6 pt-24 pb-8">
+          <div className="grid w-full max-w-5xl justify-items-center gap-8 text-center md:gap-10">
+            <h1 className="hero-title text-foreground">
+              {["KYOTO", "REGION"].map((word, wi) => (
+                <span key={word} className="hero-word overflow-hidden pb-[0.04em]">
+                  <motion.span
+                    className="inline-block will-change-transform"
+                    initial={reduce ? false : { y: "115%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    transition={{
+                      duration: 1.2,
+                      delay: 0.25 + wi * 0.14,
+                      ease: easeExpoOut,
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.55, ease: easeExpoOut }}
+            >
+              <Link
+                href="/recruitment"
+                className={cn(
+                  "btn-glossy group relative inline-flex items-center justify-center overflow-hidden",
+                  "px-7 py-3.5 text-sm font-medium tracking-wide text-white",
+                )}
               >
-                <motion.span
-                  className="inline-block will-change-transform"
-                  initial={reduce ? false : { y: "115%", opacity: 0 }}
-                  animate={{ y: "0%", opacity: 1 }}
-                  transition={{
-                    duration: 1.2,
-                    delay: 0.25 + wi * 0.14,
-                    ease: easeExpoOut,
-                  }}
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 20, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, delay: 0.55, ease: easeExpoOut }}
-            className="mx-auto mt-6 max-w-md text-base leading-relaxed text-muted md:mt-8 md:max-w-lg md:text-lg"
-          >
-            {siteConfig.tagline}
-          </motion.p>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.75, ease: easeExpoOut }}
-            className="mt-8 md:mt-10"
-          >
-            <Button href="/recruitment" variant="primary">
-              Join Kyoto Region
-            </Button>
-          </motion.div>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent opacity-80"
+                />
+                <span className="relative z-10">Join Kyoto Region</span>
+              </Link>
+            </motion.div>
+          </div>
         </div>
 
         <motion.a
@@ -119,7 +119,7 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6, ease: easeExpoOut }}
-          className="animate-scroll-cue inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
+          className="animate-scroll-cue mx-auto mb-10 inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
         >
           Scroll
           <ChevronDown size={14} className="text-accent" />

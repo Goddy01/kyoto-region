@@ -96,16 +96,25 @@ body {
 
 .hero-title {
   font-family: var(--font-bebas), var(--font-outfit), sans-serif;
-  font-size: clamp(4.5rem, 16vw, 11rem);
+  font-size: clamp(4.5rem, 15vw, 10.5rem);
   font-weight: 400;
   line-height: 0.9;
-  letter-spacing: 0.18em;
   text-transform: uppercase;
+  text-align: center;
   -webkit-font-smoothing: antialiased;
-  transform: scaleX(1.12);
-  transform-origin: center;
-  width: min(100%, 56rem);
-  max-width: 100%;
+  width: 100%;
+}
+
+.hero-title .hero-word {
+  display: block;
+  text-align: center;
+  letter-spacing: 0.22em;
+}
+
+.hero-title .hero-word > span {
+  display: inline-block;
+  /* Pull back trailing letter-spacing so the word is optically centered */
+  margin-right: -0.22em;
 }
 
 /* Chrome / gloss display type */

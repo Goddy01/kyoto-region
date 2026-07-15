@@ -127,17 +127,10 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9, ease: easeExpoOut }}
-            className="glass-glossy mt-8 flex flex-wrap items-center justify-center gap-3 px-5 py-4 md:mt-10 md:gap-4"
+            className="mt-8 md:mt-10"
           >
-            <Button href="/recruitment" variant="primary" className="btn-glossy border-0">
+            <Button href="/recruitment" variant="primary">
               Join Kyoto Region
-            </Button>
-            <Button
-              href="/roster"
-              variant="secondary"
-              className="btn-glossy-secondary"
-            >
-              View Team
             </Button>
           </motion.div>
         </div>

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { SakuraParticles } from "@/components/ui/SakuraParticles";
 import { easeExpoOut } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
@@ -63,7 +62,6 @@ export function Hero() {
           className="animate-pulse-glow absolute top-1/2 left-1/2 h-[48vw] w-[48vw] max-h-[480px] max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/12 blur-[130px]"
         />
         <div className="pattern-asanoha absolute inset-0 opacity-20" />
-        <SakuraParticles count={10} className="opacity-60" />
       </div>
 
       <motion.div

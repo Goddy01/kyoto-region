@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { siteConfig } from "@/data/site";
-import { SakuraParticles } from "@/components/ui/SakuraParticles";
 
 export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-surface">
       <div className="sakura-glow pointer-events-none absolute inset-0 opacity-50" />
-      <SakuraParticles count={8} className="opacity-40" />
       <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
           <div>

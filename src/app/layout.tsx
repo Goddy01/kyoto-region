@@ -6,6 +6,8 @@ import { IntroLoader } from "@/components/motion/IntroLoader";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { GlobalSakura } from "@/components/ui/SakuraParticles";
+import { PetalCursor } from "@/components/ui/PetalCursor";
 import { siteConfig } from "@/data/site";
 
 const bebasNeue = Bebas_Neue({
@@ -63,6 +65,8 @@ export default function RootLayout({
             Skip to content
           </a>
           <ScrollProgress />
+          <GlobalSakura />
+          <PetalCursor />
           <div className="noise-overlay" aria-hidden />
           <Navbar />
           <main id="main" className="relative">

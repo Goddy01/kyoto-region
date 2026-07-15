@@ -89,11 +89,11 @@ export function Hero() {
             EST 2026
           </motion.p>
 
-          <h1 className="hero-title">
+          <h1 className="hero-title text-foreground">
             {["KYOTO", "REGION"].map((word, wi) => (
               <span key={word} className="block overflow-hidden pb-[0.04em]">
                 <motion.span
-                  className="gloss-shine inline-block will-change-transform"
+                  className="inline-block will-change-transform"
                   initial={reduce ? false : { y: "115%", opacity: 0 }}
                   animate={{ y: "0%", opacity: 1 }}
                   transition={{
@@ -102,13 +102,7 @@ export function Hero() {
                     ease: easeExpoOut,
                   }}
                 >
-                  <span
-                    className={
-                      wi === 1 ? "gloss-text-accent" : "gloss-text"
-                    }
-                  >
-                    {word}
-                  </span>
+                  {word}
                 </motion.span>
               </span>
             ))}

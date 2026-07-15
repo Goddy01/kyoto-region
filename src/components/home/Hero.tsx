@@ -25,7 +25,6 @@ export function Hero() {
       ref={ref}
       className="relative isolate min-h-[100svh] overflow-hidden"
     >
-      {/* Background media */}
       <div className="absolute inset-0 bg-bg">
         <motion.div
           style={reduce ? undefined : { y: mediaY }}
@@ -38,11 +37,11 @@ export function Hero() {
               fill
               priority
               sizes="100vw"
-              className="object-cover object-[center_35%]"
+              className="object-cover object-center"
             />
           ) : (
             <video
-              className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+              className="absolute inset-0 h-full w-full object-cover object-center"
               autoPlay
               muted
               loop
@@ -56,56 +55,48 @@ export function Hero() {
           )}
         </motion.div>
 
-        {/* Asymmetric veil — keep right/center of video breathing */}
         <div
           className="absolute inset-0"
           style={{
             background: `
-              linear-gradient(105deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.55) 38%, rgba(5,5,5,0.2) 62%, rgba(5,5,5,0.45) 100%),
-              linear-gradient(180deg, rgba(5,5,5,0.5) 0%, transparent 28%, transparent 58%, rgba(5,5,5,0.92) 100%)
+              radial-gradient(ellipse 70% 55% at 50% 45%, rgba(5,5,5,0.25) 0%, rgba(5,5,5,0.55) 55%, rgba(5,5,5,0.88) 100%),
+              linear-gradient(180deg, rgba(5,5,5,0.55) 0%, transparent 30%, transparent 55%, rgba(5,5,5,0.92) 100%)
             `,
           }}
         />
         <div
           aria-hidden
-          className="animate-pulse-glow absolute top-[28%] left-[18%] h-[42vw] w-[42vw] max-h-[420px] max-w-[420px] rounded-full bg-accent/12 blur-[120px]"
+          className="animate-pulse-glow absolute top-1/2 left-1/2 h-[48vw] w-[48vw] max-h-[480px] max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/12 blur-[130px]"
         />
         <SakuraParticles count={10} className="opacity-60" />
       </div>
 
-      {/* Content grid */}
       <motion.div
         style={reduce ? undefined : { y, opacity }}
-        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col px-6 pt-28 pb-10 md:pt-32 md:pb-12 lg:px-8"
+        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col items-center px-6 pt-28 pb-10 text-center md:pt-32 md:pb-12 lg:px-8"
       >
-        {/* Top meta row */}
-        <div className="mb-auto flex items-start justify-between gap-6">
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: easeExpoOut }}
+          className="text-[10px] font-medium tracking-[0.36em] text-accent uppercase md:text-xs"
+        >
+          零 · Chapter 00 · Enter the region
+        </motion.p>
+
+        <div className="flex flex-1 flex-col items-center justify-center py-10 md:py-12">
           <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: easeExpoOut }}
-            className="text-[10px] font-medium tracking-[0.36em] text-accent uppercase md:text-xs"
-          >
-            零 · Chapter 00 · Enter the region
-          </motion.p>
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25, ease: easeExpoOut }}
-            className="hidden text-[10px] tracking-[0.28em] text-muted uppercase sm:block md:text-xs"
+            transition={{ duration: 0.6, delay: 0.28, ease: easeExpoOut }}
+            className="mb-5 text-[10px] tracking-[0.32em] text-muted uppercase md:text-xs"
           >
             EST 2026
           </motion.p>
-        </div>
 
-        {/* Primary content block — lower-left composition */}
-        <div className="mt-16 max-w-3xl md:mt-0 md:max-w-[min(100%,52rem)] lg:pb-6">
           <h1 className="hero-title text-foreground">
             {["KYOTO", "REGION"].map((word, wi) => (
-              <span
-                key={word}
-                className="block overflow-hidden pb-[0.04em]"
-              >
+              <span key={word} className="block overflow-hidden pb-[0.04em]">
                 <motion.span
                   className="inline-block will-change-transform"
                   initial={reduce ? false : { y: "115%", opacity: 0 }}
@@ -130,7 +121,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 20, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.9, delay: 0.7, ease: easeExpoOut }}
-            className="mt-6 max-w-md text-base leading-relaxed text-muted md:mt-8 md:max-w-lg md:text-lg"
+            className="mx-auto mt-6 max-w-md text-base leading-relaxed text-muted md:mt-8 md:max-w-lg md:text-lg"
           >
             {siteConfig.tagline}
           </motion.p>
@@ -139,7 +130,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9, ease: easeExpoOut }}
-            className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4"
+            className="mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-10 md:gap-4"
           >
             <Button href="/recruitment" variant="primary">
               Join Kyoto Region
@@ -150,27 +141,16 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Bottom rail */}
-        <div className="mt-14 flex items-end justify-between border-t border-white/10 pt-6 md:mt-16">
-          <motion.p
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.05, duration: 0.6, ease: easeExpoOut }}
-            className="hidden text-[10px] tracking-[0.24em] text-muted uppercase md:block"
-          >
-            Precision in bloom
-          </motion.p>
-          <motion.a
-            href="#stats"
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.15, duration: 0.6, ease: easeExpoOut }}
-            className="animate-scroll-cue ml-auto inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
-          >
-            Scroll
-            <ChevronDown size={14} className="text-accent" />
-          </motion.a>
-        </div>
+        <motion.a
+          href="#stats"
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.15, duration: 0.6, ease: easeExpoOut }}
+          className="animate-scroll-cue inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
+        >
+          Scroll
+          <ChevronDown size={14} className="text-accent" />
+        </motion.a>
       </motion.div>
     </section>
   );

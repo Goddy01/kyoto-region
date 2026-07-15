@@ -9,17 +9,14 @@ import { FadeUp, Stagger, StaggerItem } from "@/components/motion/FadeUp";
 import { news } from "@/data/index";
 import type { NewsCategory } from "@/data/types";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/i18n/LanguageProvider";
 
-const filters: Array<"All" | NewsCategory> = [
-  "All",
-  "Announcement",
-  "Match",
-  "Community",
-  "Roster",
-];
+type FilterKey = "All" | NewsCategory;
 
 export default function NewsPage() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
+  const { t } = useI18n();
+  const p = t.pages.news;
+  const [filter, setFilter] = useState<FilterKey>("All");
   const featured = news.find((n) => n.featured) ?? news[0];
   const articles = useMemo(() => {
     const list = news.filter((n) => n.slug !== featured.slug);
@@ -27,18 +24,36 @@ export default function NewsPage() {
     return list.filter((n) => n.category === filter);
   }, [filter, featured.slug]);
 
+  const filters: Array<{ key: FilterKey; label: string }> = [
+    { key: "All", label: t.common.all },
+    { key: "Announcement", label: p.announcement },
+    { key: "Match", label: p.match },
+    { key: "Community", label: p.community },
+    { key: "Roster", label: p.roster },
+  ];
+
+  const categoryLabel = (category: NewsCategory) => {
+    const map: Record<NewsCategory, string> = {
+      Announcement: p.announcement,
+      Match: p.match,
+      Community: p.community,
+      Roster: p.roster,
+    };
+    return map[category];
+  };
+
   return (
     <>
       <PageHero
-        eyebrow="News"
+        eyebrow={p.eyebrow}
         title={
           <>
-            Signals from
+            {p.titleLead}
             <br />
-            <span className="gradient-text">the region.</span>
+            <span className="gradient-text">{p.titleAccent}</span>
           </>
         }
-        description="Announcements, match reports, roster moves, and community drops."
+        description={p.description}
       />
 
       <Section className="!pt-12 !pb-8">
@@ -60,8 +75,10 @@ export default function NewsPage() {
             </div>
             <div className="flex flex-col justify-center p-8 md:p-12">
               <div className="flex flex-wrap gap-4 text-xs tracking-[0.2em] uppercase">
-                <span className="text-accent">Featured</span>
-                <span className="text-muted">{featured.category}</span>
+                <span className="text-accent">{t.common.featured}</span>
+                <span className="text-muted">
+                  {categoryLabel(featured.category)}
+                </span>
                 <span className="text-muted">{featured.date}</span>
               </div>
               <h2 className="font-display mt-6 max-w-3xl text-3xl tracking-tight transition-colors group-hover:text-accent md:text-5xl">
@@ -69,7 +86,7 @@ export default function NewsPage() {
               </h2>
               <p className="mt-4 max-w-2xl text-muted">{featured.excerpt}</p>
               <span className="mt-8 inline-flex items-center gap-2 text-sm">
-                Read article <ArrowUpRight size={16} />
+                {t.common.readArticle} <ArrowUpRight size={16} />
               </span>
             </div>
           </Link>
@@ -80,17 +97,17 @@ export default function NewsPage() {
         <div className="mb-10 flex flex-wrap gap-2">
           {filters.map((f) => (
             <button
-              key={f}
+              key={f.key}
               type="button"
-              onClick={() => setFilter(f)}
+              onClick={() => setFilter(f.key)}
               className={cn(
                 "border px-4 py-2 text-xs tracking-[0.16em] uppercase transition-colors",
-                filter === f
+                filter === f.key
                   ? "border-accent bg-accent/10 text-accent"
                   : "border-white/15 text-muted hover:border-white/30 hover:text-foreground",
               )}
             >
-              {f}
+              {f.label}
             </button>
           ))}
         </div>
@@ -110,7 +127,7 @@ export default function NewsPage() {
                   </div>
                   <div className="flex flex-1 flex-col p-6">
                     <p className="text-xs tracking-[0.18em] text-accent uppercase">
-                      {article.category}
+                      {categoryLabel(article.category)}
                     </p>
                     <h3 className="font-display mt-4 flex-1 text-xl tracking-tight">
                       {article.title}

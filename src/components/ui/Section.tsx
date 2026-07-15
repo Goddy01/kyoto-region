@@ -73,15 +73,15 @@ export function GlassCard({
   return (
     <motion.div
       className={cn(
-        "glass group relative overflow-hidden rounded-none p-6",
+        "glass group relative overflow-hidden rounded-none p-6 md:p-7",
         className,
       )}
       whileHover={
         reduce
           ? undefined
           : {
-              y: -6,
-              borderColor: "rgba(255, 79, 139, 0.45)",
+              y: -8,
+              borderColor: "rgba(255, 79, 139, 0.5)",
               transition: { duration: 0.45, ease: easeExpoOut },
             }
       }
@@ -95,7 +95,7 @@ export function GlassCard({
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            "linear-gradient(120deg, transparent 30%, rgba(255,79,139,0.06) 50%, transparent 70%)",
+            "linear-gradient(120deg, transparent 30%, rgba(255,79,139,0.07) 50%, transparent 70%)",
         }}
       />
       <div className="relative z-10">{children}</div>
@@ -134,6 +134,13 @@ export function PageHero({
         transition={{ duration: 1.4, ease: easeExpoOut }}
       />
       <div className="pattern-asanoha absolute inset-0 opacity-40" />
+      <div className="scanlines absolute inset-0 opacity-25" />
+      <div className="pointer-events-none absolute inset-8 md:inset-12" aria-hidden>
+        <span className="hud-corner hud-corner-tl" />
+        <span className="hud-corner hud-corner-tr" />
+        <span className="hud-corner hud-corner-bl" />
+        <span className="hud-corner hud-corner-br" />
+      </div>
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <ClipReveal>
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.28em] text-accent">

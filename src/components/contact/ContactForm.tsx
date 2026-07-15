@@ -7,8 +7,11 @@ import { Button } from "@/components/ui/Button";
 import { GlassCard } from "@/components/ui/Section";
 import { siteConfig } from "@/data/site";
 import { recruitmentRoles } from "@/data/index";
+import { useI18n } from "@/i18n/LanguageProvider";
 
 export function ContactForm() {
+  const { t } = useI18n();
+  const c = t.pages.contact;
   const searchParams = useSearchParams();
   const roleParam = searchParams.get("role");
   const roleLabel = useMemo(
@@ -35,16 +38,14 @@ export function ContactForm() {
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/15 text-accent">
           <Check size={22} />
         </div>
-        <h3 className="font-display text-2xl tracking-tight">Message received</h3>
-        <p className="mt-3 max-w-sm text-muted">
-          Prototype confirmation only—no backend is connected yet. Your client can wire this later.
-        </p>
+        <h3 className="font-display text-2xl tracking-tight">{c.received}</h3>
+        <p className="mt-3 max-w-sm text-muted">{c.receivedBody}</p>
         <button
           type="button"
           className="mt-8 text-sm text-accent underline-offset-4 hover:underline"
           onClick={() => setSubmitted(false)}
         >
-          Send another
+          {c.sendAnother}
         </button>
       </GlassCard>
     );
@@ -54,12 +55,12 @@ export function ContactForm() {
     <form onSubmit={onSubmit} className="glass space-y-5 p-6 md:p-8">
       {roleLabel && (
         <p className="border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-accent">
-          Applying for: {roleLabel}
+          {c.applyingFor} {roleLabel}
         </p>
       )}
       <div>
         <label htmlFor="name" className="mb-2 block text-xs tracking-[0.16em] text-muted uppercase">
-          Name
+          {c.name}
         </label>
         <input
           id="name"
@@ -71,7 +72,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="email" className="mb-2 block text-xs tracking-[0.16em] text-muted uppercase">
-          Email
+          {c.email}
         </label>
         <input
           id="email"
@@ -84,7 +85,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="subject" className="mb-2 block text-xs tracking-[0.16em] text-muted uppercase">
-          Subject
+          {c.subject}
         </label>
         <input
           id="subject"
@@ -96,7 +97,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="message" className="mb-2 block text-xs tracking-[0.16em] text-muted uppercase">
-          Message
+          {c.message}
         </label>
         <textarea
           id="message"
@@ -108,13 +109,15 @@ export function ContactForm() {
         />
       </div>
       <Button type="submit" variant="primary" className="w-full sm:w-auto">
-        Send message
+        {c.send}
       </Button>
     </form>
   );
 }
 
 export function ContactChannels() {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-4">
       <a
@@ -126,7 +129,7 @@ export function ContactChannels() {
         <MessageCircle className="text-accent" size={22} />
         <div>
           <p className="text-xs tracking-[0.18em] text-muted uppercase">Discord</p>
-          <p className="mt-1 text-foreground">Join Kyoto Region</p>
+          <p className="mt-1 text-foreground">{t.common.join}</p>
         </div>
       </a>
       <a

@@ -8,35 +8,13 @@ import {
   useTransform,
 } from "framer-motion";
 import { FadeUp, TextReveal } from "@/components/motion/FadeUp";
+import { useI18n } from "@/i18n/LanguageProvider";
 
-const movements = [
-  {
-    kanji: "慎",
-    label: "Restraint",
-    title: "Silence before the shot",
-    body: "We prepare like monks. No noise. No fluff. Intent arrives before the first round.",
-  },
-  {
-    kanji: "咲",
-    label: "Bloom",
-    title: "Violence with elegance",
-    body: "When the window opens, Kyoto doesn't hesitate — executions land clean and cinematic.",
-  },
-  {
-    kanji: "結",
-    label: "Bond",
-    title: "One call, five minds",
-    body: "Chemistry is our map pool. Trust forged in VOD reviews and quiet bootcamp dinners.",
-  },
-  {
-    kanji: "極",
-    label: "Peak",
-    title: "Hardware as proof",
-    body: "Titles are receipts. Every placement is evidence of hours the public never sees.",
-  },
-];
+const kanji = ["慎", "咲", "結", "極"] as const;
 
 export function RitualScroll() {
+  const { t } = useI18n();
+  const movements = t.home.movements;
   const ref = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -61,45 +39,56 @@ export function RitualScroll() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, []);
+  }, [movements]);
 
   const x = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -travel]);
 
   return (
     <section ref={ref} id="philosophy" className="relative h-[300vh] bg-bg">
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-        <div className="mx-auto mb-10 w-full max-w-7xl px-6 lg:px-8">
+        <div className="pointer-events-none absolute inset-0 sakura-glow opacity-40" />
+
+        <div className="relative mx-auto mb-10 w-full max-w-7xl px-6 lg:px-8">
           <FadeUp>
             <p className="text-xs tracking-[0.32em] text-accent uppercase">
-              三 · Philosophy · Four movements
+              {t.home.philosophyEyebrow}
             </p>
           </FadeUp>
           <TextReveal
-            text="How Kyoto moves."
+            text={t.home.philosophyTitle}
             className="font-display text-display-md mt-4 md:text-display-lg"
             delay={0.1}
           />
         </div>
 
-        {/* Same left + right rail as the title */}
         <div
           ref={railRef}
-          className="mx-auto w-full max-w-7xl overflow-hidden px-6 lg:px-8"
+          className="relative mx-auto w-full max-w-7xl overflow-hidden px-6 lg:px-8"
         >
           <motion.div ref={trackRef} style={{ x }} className="flex w-max gap-6">
             {movements.map((m, i) => (
               <article
-                key={m.kanji}
-                className="glass relative flex h-[48vh] w-[min(78vw,420px)] shrink-0 flex-col justify-between overflow-hidden p-8 md:h-[52vh] md:w-[min(38vw,420px)] md:p-10"
+                key={kanji[i]}
+                className="glass hud-frame esports-sheen relative flex h-[48vh] w-[min(78vw,420px)] shrink-0 flex-col justify-between overflow-hidden p-8 md:h-[52vh] md:w-[min(38vw,420px)] md:p-10"
               >
+                <span className="sheen-beam" aria-hidden />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 opacity-[0.12]"
+                  style={{
+                    background:
+                      "linear-gradient(145deg, rgba(255,79,139,0.25) 0%, transparent 42%)",
+                  }}
+                />
                 <div
                   aria-hidden
                   className="pointer-events-none absolute -right-6 -bottom-10 font-display text-[9rem] leading-none text-accent/10 md:text-[12rem]"
                 >
-                  {m.kanji}
+                  {kanji[i]}
                 </div>
-                <div>
-                  <p className="text-[10px] tracking-[0.28em] text-accent uppercase">
+                <div className="relative">
+                  <p className="placement-chip">
+                    <span className="inline-block h-1.5 w-1.5 bg-accent" />
                     0{i + 1} · {m.label}
                   </p>
                   <h3 className="font-display mt-6 text-3xl tracking-tight md:text-4xl">
@@ -114,10 +103,14 @@ export function RitualScroll() {
           </motion.div>
         </div>
 
-        <div className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
-          <div className="h-px w-full bg-white/10">
+        <div className="relative mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-6 text-[10px] tracking-[0.24em] text-muted uppercase">
+            <span>01</span>
+            <span>04</span>
+          </div>
+          <div className="mt-3 h-px w-full bg-white/10">
             <motion.div
-              className="h-px origin-left bg-accent"
+              className="h-px origin-left bg-gradient-to-r from-accent to-accent-deep"
               style={{ scaleX: scrollYProgress }}
             />
           </div>

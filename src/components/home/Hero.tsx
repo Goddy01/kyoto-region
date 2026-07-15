@@ -1,13 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { easeExpoOut } from "@/lib/motion";
+import { easeExpoOut, easeQuartOut } from "@/lib/motion";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/i18n/LanguageProvider";
+
+const TITLE = ["KYOTO", "REGION"] as const;
 
 export function Hero() {
+  const { t } = useI18n();
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -17,6 +26,7 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
   const mediaY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const mediaScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.14]);
 
   return (
     <section
@@ -26,8 +36,11 @@ export function Hero() {
       <div className="absolute inset-0 bg-bg">
         {!reduce && (
           <motion.div
-            style={{ y: mediaY }}
-            className="absolute inset-0 scale-105"
+            style={{ y: mediaY, scale: mediaScale }}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.12 }}
+            animate={{ opacity: 1, scale: 1.05 }}
+            transition={{ duration: 1.8, ease: easeExpoOut }}
           >
             <video
               className="absolute inset-0 h-full w-full object-cover object-center"
@@ -43,44 +56,68 @@ export function Hero() {
           </motion.div>
         )}
 
+        {reduce && (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url(/images/hero/arena.jpg)" }}
+          />
+        )}
+
         <div
           className="absolute inset-0"
           style={{
-            background: reduce
-              ? `
-                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,79,139,0.18) 0%, transparent 55%),
-                linear-gradient(180deg, #050505 0%, #0a0a0a 45%, #050505 100%)
-              `
-              : `
-                radial-gradient(ellipse 70% 55% at 50% 45%, rgba(5,5,5,0.25) 0%, rgba(5,5,5,0.55) 55%, rgba(5,5,5,0.88) 100%),
-                linear-gradient(180deg, rgba(5,5,5,0.55) 0%, transparent 30%, transparent 55%, rgba(5,5,5,0.92) 100%)
-              `,
+            background: `
+              radial-gradient(ellipse 70% 55% at 50% 42%, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.55) 55%, rgba(5,5,5,0.9) 100%),
+              linear-gradient(180deg, rgba(5,5,5,0.6) 0%, transparent 28%, transparent 52%, rgba(5,5,5,0.95) 100%)
+            `,
           }}
         />
         <div
           aria-hidden
-          className="animate-pulse-glow absolute top-1/2 left-1/2 h-[48vw] w-[48vw] max-h-[480px] max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/12 blur-[130px]"
+          className="animate-pulse-glow absolute top-1/2 left-1/2 h-[42vw] w-[42vw] max-h-[420px] max-w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[120px]"
         />
-        <div className="pattern-asanoha absolute inset-0 opacity-20" />
+        <div className="pattern-asanoha absolute inset-0 opacity-[0.14]" />
+        <div className="scanlines absolute inset-0 opacity-[0.35]" aria-hidden />
+      </div>
+
+      <div
+        className="pointer-events-none absolute top-24 right-10 bottom-10 left-10 z-0 md:top-32 md:right-14 md:bottom-14 md:left-14"
+        aria-hidden
+      >
+        <span className="hud-corner hud-corner-tl" />
+        <span className="hud-corner hud-corner-tr" />
+        <span className="hud-corner hud-corner-bl" />
+        <span className="hud-corner hud-corner-br" />
       </div>
 
       <motion.div
         style={reduce ? undefined : { y, opacity }}
         className="relative z-10 flex min-h-[100svh] w-full flex-col"
       >
-        {/* True viewport-centered content axis */}
         <div className="flex flex-1 items-center justify-center px-6 pt-24 pb-8">
-          <div className="grid w-full max-w-5xl justify-items-center gap-8 text-center md:gap-10">
+          <div className="grid w-full max-w-5xl justify-items-center gap-7 text-center md:gap-9">
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: easeExpoOut }}
+              className="text-[10px] tracking-[0.42em] text-accent uppercase md:text-[11px]"
+            >
+              {t.home.heroEyebrow}
+            </motion.p>
+
             <h1 className="hero-title text-foreground">
-              {["KYOTO", "REGION"].map((word, wi) => (
-                <span key={word} className="hero-word overflow-hidden pb-[0.04em]">
+              {TITLE.map((word, wi) => (
+                <span
+                  key={word}
+                  className="hero-word overflow-hidden pb-[0.04em]"
+                >
                   <motion.span
-                    className="inline-block will-change-transform"
+                    className="gloss-text inline-block will-change-transform"
                     initial={reduce ? false : { y: "115%", opacity: 0 }}
                     animate={{ y: "0%", opacity: 1 }}
                     transition={{
-                      duration: 1.2,
-                      delay: 0.25 + wi * 0.14,
+                      duration: 1.15,
+                      delay: 0.28 + wi * 0.12,
                       ease: easeExpoOut,
                     }}
                   >
@@ -91,22 +128,43 @@ export function Hero() {
             </h1>
 
             <motion.div
-              initial={reduce ? false : { opacity: 0, y: 16 }}
+              initial={reduce ? false : { scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.55, ease: easeQuartOut }}
+              className="h-px w-24 origin-center bg-gradient-to-r from-transparent via-accent to-transparent md:w-32"
+              aria-hidden
+            />
+
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.55, ease: easeExpoOut }}
+              transition={{ duration: 0.75, delay: 0.62, ease: easeExpoOut }}
+              className="max-w-md text-sm tracking-wide text-muted md:text-base"
+            >
+              {t.footer.tagline}
+            </motion.p>
+
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.78, ease: easeExpoOut }}
             >
               <Link
                 href="/recruitment"
                 className={cn(
                   "btn-glossy group relative inline-flex items-center justify-center overflow-hidden",
-                  "px-7 py-3.5 text-sm font-medium tracking-wide text-white",
+                  "px-8 py-3.5 text-sm font-medium tracking-[0.14em] text-white uppercase",
                 )}
               >
                 <span
                   aria-hidden
                   className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent opacity-80"
                 />
-                <span className="relative z-10">Join Kyoto Region</span>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+                />
+                <span className="relative z-10">{t.home.joinCta}</span>
               </Link>
             </motion.div>
           </div>
@@ -116,11 +174,13 @@ export function Hero() {
           href="#philosophy"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.6, ease: easeExpoOut }}
-          className="animate-scroll-cue mx-auto mb-10 inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
+          transition={{ delay: 1.05, duration: 0.6, ease: easeExpoOut }}
+          className="animate-scroll-cue mx-auto mb-10 inline-flex flex-col items-center gap-2 text-[10px] tracking-[0.32em] text-muted uppercase"
         >
-          Scroll
-          <ChevronDown size={14} className="text-accent" />
+          <span className="inline-flex items-center gap-2">
+            {t.home.enter}
+            <ChevronDown size={14} className="text-accent" />
+          </span>
         </motion.a>
       </motion.div>
     </section>

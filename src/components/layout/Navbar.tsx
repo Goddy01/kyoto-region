@@ -6,21 +6,22 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { siteConfig } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { easeExpoOut } from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
-
-const primaryNav = siteConfig.nav.filter((item) =>
-  ["About", "Roster", "Results", "Events", "News", "Recruitment"].includes(
-    item.label,
-  ),
-);
+import { useI18n } from "@/i18n/LanguageProvider";
 
 export function Navbar() {
   const pathname = usePathname();
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const primaryNav = siteConfig.nav.filter((item) =>
+    (siteConfig.primaryNavKeys as readonly string[]).includes(item.key),
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -50,37 +51,55 @@ export function Navbar() {
             : "bg-transparent",
         )}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:h-20 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 lg:h-20 lg:px-8">
           <Logo />
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden items-center gap-7 xl:flex">
             {primaryNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "text-xs font-medium tracking-[0.16em] uppercase transition-colors duration-300",
+                  "group relative text-xs font-medium tracking-[0.16em] uppercase transition-colors duration-300",
                   pathname === item.href
                     ? "text-accent"
                     : "text-muted hover:text-foreground",
                 )}
               >
-                {item.label}
+                {t.nav[item.key]}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "absolute -bottom-1 left-0 h-px w-full origin-left bg-accent transition-transform duration-400",
+                    pathname === item.href
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100",
+                  )}
+                  style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                />
               </Link>
             ))}
           </nav>
-          <div className="hidden lg:block">
-            <Button href="/contact" variant="primary" className="!px-5 !py-2.5 text-xs tracking-[0.14em] uppercase">
-              Contact
+          <div className="hidden items-center gap-3 lg:flex">
+            <LanguageSwitcher />
+            <Button
+              href="/contact"
+              variant="primary"
+              className="!px-5 !py-2.5 text-xs tracking-[0.14em] uppercase"
+            >
+              {t.common.contact}
             </Button>
           </div>
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex h-10 w-10 items-center justify-center text-foreground lg:hidden"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <LanguageSwitcher compact />
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="inline-flex h-10 w-10 items-center justify-center text-foreground"
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -112,7 +131,7 @@ export function Navbar() {
                       pathname === item.href ? "text-accent" : "text-foreground",
                     )}
                   >
-                    {item.label}
+                    {t.nav[item.key]}
                   </Link>
                 </motion.div>
               ))}
@@ -123,7 +142,7 @@ export function Navbar() {
                 className="mt-8"
               >
                 <Button href="/recruitment" variant="primary">
-                  Join Kyoto Region
+                  {t.common.join}
                 </Button>
               </motion.div>
             </nav>

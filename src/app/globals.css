@@ -73,6 +73,10 @@ body {
   font-optical-sizing: auto;
 }
 
+.font-hero {
+  font-family: var(--font-bebas), var(--font-outfit), sans-serif;
+}
+
 .text-display-xl {
   font-size: var(--text-display-xl);
   line-height: 0.92;
@@ -348,6 +352,34 @@ body {
   }
 }
 
+@keyframes scan-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 8px;
+  }
+}
+
+@keyframes edge-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes sheen-sweep {
+  0% {
+    transform: translateX(-130%) skewX(-16deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-16deg);
+  }
+}
+
 .animate-sakura {
   animation: sakura-drift linear infinite;
 }
@@ -358,6 +390,139 @@ body {
 
 .animate-scroll-cue {
   animation: scroll-cue 2s var(--ease-expo-out) infinite;
+}
+
+/* Esports HUD corners */
+.hud-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: color-mix(in srgb, var(--accent) 55%, white 10%);
+  opacity: 0.7;
+  animation: edge-pulse 3.5s var(--ease-expo-out) infinite;
+}
+
+.hud-corner-tl {
+  top: 0;
+  left: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.hud-corner-tr {
+  top: 0;
+  right: 0;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.hud-corner-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.hud-corner-br {
+  right: 0;
+  bottom: 0;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.scanlines {
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.045) 2px,
+    rgba(0, 0, 0, 0.045) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+.hud-frame {
+  position: relative;
+}
+
+.hud-frame::before,
+.hud-frame::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+  width: 14px;
+  height: 14px;
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  opacity: 0.85;
+  transition: opacity 0.45s var(--ease-expo-out);
+}
+
+.hud-frame::before {
+  top: 10px;
+  left: 10px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.hud-frame::after {
+  right: 10px;
+  bottom: 10px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.hud-frame:hover::before,
+.hud-frame:hover::after {
+  opacity: 1;
+}
+
+/* Sheen as a child layer so it never fights HUD ::after corners */
+.esports-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.esports-sheen .sheen-beam {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 60%
+  );
+  transform: translateX(-130%) skewX(-16deg);
+  opacity: 0;
+}
+
+.esports-sheen:hover .sheen-beam {
+  opacity: 1;
+  animation: sheen-sweep 0.85s var(--ease-quart-out) forwards;
+}
+
+.marquee-track {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.placement-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 @keyframes marquee {
@@ -423,7 +588,9 @@ body {
   .animate-marquee,
   .animate-marquee-reverse,
   .gloss-text-accent,
-  .gloss-shine::after {
+  .gloss-shine::after,
+  .hud-corner,
+  .esports-sheen:hover .sheen-beam {
     animation: none;
   }
 

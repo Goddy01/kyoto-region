@@ -3,6 +3,7 @@ import { Bebas_Neue, Outfit, Geist } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 import { IntroLoader } from "@/components/motion/IntroLoader";
+import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
@@ -29,7 +30,7 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} — Premium Esports`,
+    default: `${siteConfig.name}`,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -56,24 +57,26 @@ export default function RootLayout({
       <body
         className={`${bebasNeue.variable} ${outfit.variable} ${geist.variable} min-h-screen bg-bg font-sans text-foreground antialiased`}
       >
-        <SmoothScrollProvider>
-          <IntroLoader />
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-white"
-          >
-            Skip to content
-          </a>
-          <ScrollProgress />
-          <GlobalSakura />
-          <PetalCursor />
-          <div className="noise-overlay" aria-hidden />
-          <Navbar />
-          <main id="main" className="relative">
-            {children}
-          </main>
-          <Footer />
-        </SmoothScrollProvider>
+        <LanguageProvider>
+          <SmoothScrollProvider>
+            <IntroLoader />
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+            >
+              Skip to content
+            </a>
+            <ScrollProgress />
+            <GlobalSakura />
+            <PetalCursor />
+            <div className="noise-overlay" aria-hidden />
+            <Navbar />
+            <main id="main" className="relative">
+              {children}
+            </main>
+            <Footer />
+          </SmoothScrollProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

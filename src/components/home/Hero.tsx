@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
@@ -26,20 +25,11 @@ export function Hero() {
       className="relative isolate min-h-[100svh] overflow-hidden"
     >
       <div className="absolute inset-0 bg-bg">
-        <motion.div
-          style={reduce ? undefined : { y: mediaY }}
-          className="absolute inset-0 scale-105"
-        >
-          {reduce ? (
-            <Image
-              src="/images/hero/banner.png"
-              alt="Kyoto Region — EST 2026"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          ) : (
+        {!reduce && (
+          <motion.div
+            style={{ y: mediaY }}
+            className="absolute inset-0 scale-105"
+          >
             <video
               className="absolute inset-0 h-full w-full object-cover object-center"
               autoPlay
@@ -47,27 +37,32 @@ export function Hero() {
               loop
               playsInline
               preload="auto"
-              poster="/images/hero/banner.png"
               aria-hidden
             >
               <source src="/videos/1st.mp4" type="video/mp4" />
             </video>
-          )}
-        </motion.div>
+          </motion.div>
+        )}
 
         <div
           className="absolute inset-0"
           style={{
-            background: `
-              radial-gradient(ellipse 70% 55% at 50% 45%, rgba(5,5,5,0.25) 0%, rgba(5,5,5,0.55) 55%, rgba(5,5,5,0.88) 100%),
-              linear-gradient(180deg, rgba(5,5,5,0.55) 0%, transparent 30%, transparent 55%, rgba(5,5,5,0.92) 100%)
-            `,
+            background: reduce
+              ? `
+                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,79,139,0.18) 0%, transparent 55%),
+                linear-gradient(180deg, #050505 0%, #0a0a0a 45%, #050505 100%)
+              `
+              : `
+                radial-gradient(ellipse 70% 55% at 50% 45%, rgba(5,5,5,0.25) 0%, rgba(5,5,5,0.55) 55%, rgba(5,5,5,0.88) 100%),
+                linear-gradient(180deg, rgba(5,5,5,0.55) 0%, transparent 30%, transparent 55%, rgba(5,5,5,0.92) 100%)
+              `,
           }}
         />
         <div
           aria-hidden
           className="animate-pulse-glow absolute top-1/2 left-1/2 h-[48vw] w-[48vw] max-h-[480px] max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/12 blur-[130px]"
         />
+        <div className="pattern-asanoha absolute inset-0 opacity-20" />
         <SakuraParticles count={10} className="opacity-60" />
       </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
@@ -15,44 +16,47 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  const words = ["KYOTO", "REGION"];
+  const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-end overflow-hidden pb-16 md:items-center md:pb-0"
+      className="relative flex min-h-[100svh] items-end overflow-hidden pb-16 md:items-end md:pb-24"
     >
-      {/* Cinematic background */}
       <div className="absolute inset-0 bg-bg">
+        <motion.div
+          style={reduce ? undefined : { y: imageY }}
+          className="absolute inset-0 scale-105"
+        >
+          <Image
+            src="/images/hero/banner.png"
+            alt="Kyoto Region — EST 2026"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </motion.div>
+
+        {/* Soft readability veil — keep banner artwork dominant */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 90% 70% at 70% 40%, rgba(255,79,139,0.18) 0%, transparent 55%), radial-gradient(ellipse 60% 50% at 20% 80%, rgba(216,27,96,0.12) 0%, transparent 50%), linear-gradient(180deg, #050505 0%, #0a0a0a 50%, #050505 100%)",
+              "linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.15) 35%, rgba(5,5,5,0.35) 70%, rgba(5,5,5,0.92) 100%)",
           }}
         />
-        <div className="pattern-asanoha absolute inset-0 opacity-30" />
         <div
           aria-hidden
-          className="animate-pulse-glow absolute top-1/4 right-1/4 h-[40vw] w-[40vw] max-h-[480px] max-w-[480px] rounded-full bg-accent/20 blur-[120px]"
+          className="animate-pulse-glow absolute top-1/3 left-1/2 h-[50vw] w-[50vw] max-h-[520px] max-w-[520px] -translate-x-1/2 rounded-full bg-accent/15 blur-[130px]"
         />
         <div
           aria-hidden
-          className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+          className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-accent/50 to-transparent"
         />
-        {/* Abstract esports silhouette plane */}
-        <div
-          aria-hidden
-          className="absolute inset-y-0 right-0 w-full md:w-1/2"
-          style={{
-            background:
-              "linear-gradient(90deg, #050505 0%, transparent 40%), linear-gradient(180deg, transparent 10%, rgba(5,5,5,0.2) 50%, #050505 95%), repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,79,139,0.03) 80px, rgba(255,79,139,0.03) 81px)",
-          }}
-        />
-        <SakuraParticles count={14} />
+        <SakuraParticles count={10} className="opacity-70" />
       </div>
 
       <motion.div
@@ -62,40 +66,19 @@ export function Hero() {
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: easeExpoOut }}
-          className="mb-6 text-xs font-medium tracking-[0.32em] text-accent uppercase"
+          transition={{ duration: 0.7, delay: 0.2, ease: easeExpoOut }}
+          className="mb-5 text-xs font-medium tracking-[0.32em] text-accent uppercase"
         >
-          Esports Organization
+          零 · Chapter 00 · Enter the region
         </motion.p>
 
-        <h1 className="font-display text-display-xl max-w-5xl text-foreground">
-          {words.map((word, wi) => (
-            <span key={word} className="mr-[0.2em] inline-block overflow-hidden">
-              <motion.span
-                className="inline-block"
-                initial={reduce ? false : { y: "110%", opacity: 0 }}
-                animate={{ y: "0%", opacity: 1 }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.25 + wi * 0.12,
-                  ease: easeExpoOut,
-                }}
-              >
-                {wi === 1 ? (
-                  <span className="gradient-text">{word}</span>
-                ) : (
-                  word
-                )}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
+        <h1 className="sr-only">Kyoto Region</h1>
 
         <motion.p
-          initial={reduce ? false : { opacity: 0, y: 20, filter: "blur(8px)" }}
+          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, delay: 0.55, ease: easeExpoOut }}
-          className="mt-7 max-w-lg text-base text-muted md:text-lg"
+          transition={{ duration: 0.9, delay: 0.35, ease: easeExpoOut }}
+          className="font-display max-w-xl text-2xl tracking-tight text-foreground md:text-4xl"
         >
           {siteConfig.tagline}
         </motion.p>
@@ -103,7 +86,7 @@ export function Hero() {
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.75, ease: easeExpoOut }}
+          transition={{ duration: 0.7, delay: 0.6, ease: easeExpoOut }}
           className="mt-10 flex flex-wrap gap-4"
         >
           <Button href="/recruitment" variant="primary">
@@ -118,8 +101,8 @@ export function Hero() {
           href="#stats"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.1, duration: 0.6, ease: easeExpoOut }}
-          className="animate-scroll-cue mt-16 inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase md:mt-24"
+          transition={{ delay: 0.95, duration: 0.6, ease: easeExpoOut }}
+          className="animate-scroll-cue mt-14 inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
         >
           Scroll
           <ChevronDown size={14} className="text-accent" />

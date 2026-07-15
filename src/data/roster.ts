@@ -16,6 +16,7 @@ export const players: Player[] = [
     ],
     monogram: "H",
     accent: "#FF4F8B",
+    image: "/images/players/hinata.jpg",
   },
   {
     slug: "kensho",
@@ -32,6 +33,7 @@ export const players: Player[] = [
     ],
     monogram: "K",
     accent: "#D81B60",
+    image: "/images/players/kensho.jpg",
   },
   {
     slug: "mizu",
@@ -48,6 +50,7 @@ export const players: Player[] = [
     ],
     monogram: "M",
     accent: "#FF7AAF",
+    image: "/images/players/mizu.jpg",
   },
   {
     slug: "ryo",
@@ -64,6 +67,7 @@ export const players: Player[] = [
     ],
     monogram: "R",
     accent: "#FF4F8B",
+    image: "/images/players/ryo.jpg",
   },
   {
     slug: "yugen",
@@ -80,6 +84,7 @@ export const players: Player[] = [
     ],
     monogram: "Y",
     accent: "#E91E63",
+    image: "/images/players/yugen.jpg",
   },
   {
     slug: "nova",
@@ -96,6 +101,7 @@ export const players: Player[] = [
     ],
     monogram: "N",
     accent: "#FF4F8B",
+    image: "/images/players/nova.jpg",
   },
 ];
 

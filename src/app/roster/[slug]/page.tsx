@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
@@ -38,16 +39,27 @@ export default async function PlayerPage({ params }: Props) {
         <div className="pattern-asanoha absolute inset-0 opacity-30" />
         <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1fr_1.1fr] lg:px-8 lg:py-24">
           <FadeUp>
-            <div
-              className="relative flex aspect-[4/5] items-end overflow-hidden border border-white/10 p-8"
-              style={{
-                background: `linear-gradient(160deg, ${player.accent}55 0%, #111 50%, #050505 100%)`,
-              }}
-            >
-              <span className="font-display absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[14rem] text-white/10">
-                {player.monogram}
-              </span>
-              <div className="relative z-10">
+            <div className="relative aspect-[4/5] overflow-hidden border border-white/10">
+              <Image
+                src={player.image}
+                alt={`${player.name} portrait`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-bg via-bg/30 to-transparent"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 opacity-35 mix-blend-soft-light"
+                style={{
+                  background: `linear-gradient(160deg, ${player.accent}77 0%, transparent 50%)`,
+                }}
+              />
+              <div className="absolute inset-x-0 bottom-0 p-8">
                 <p className="text-xs tracking-[0.24em] text-accent uppercase">
                   {player.role} · {player.game}
                 </p>

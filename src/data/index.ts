@@ -44,6 +44,7 @@ export const news: NewsArticle[] = [
     category: "Match",
     date: "2026-06-18",
     featured: true,
+    image: "/images/news/challengers.jpg",
     body: [
       "Under arena lights that felt carved for this moment, Kyoto Region closed the Pacific Challengers grand finals 3–1.",
       "Hinata's entries and Kensho's mid-round calls defined a series that never slipped into chaos—only precision.",
@@ -57,6 +58,7 @@ export const news: NewsArticle[] = [
       "Flexible talent from Korea arrives to deepen the agent pool ahead of Stage 2.",
     category: "Roster",
     date: "2026-01-09",
+    image: "/images/news/yugen.jpg",
     body: [
       "Yugen steps into Kyoto Region as our flex piece—ready on Controllers, Initiators, and late-round specialists.",
       "The signing strengthens our map veto flexibility and deepens bootcamp competition across the board.",
@@ -69,6 +71,7 @@ export const news: NewsArticle[] = [
       "Giveaways, creator collabs, and a fan tournament fill seven days of bloom.",
     category: "Community",
     date: "2026-03-21",
+    image: "/images/news/sakura.jpg",
     body: [
       "Sakura Community Week is our annual thank-you to the people who make Kyoto Region loud.",
       "Expect signed merch drop raffles, Discord exclusive VODs, and a bracket open to community teams.",
@@ -82,6 +85,7 @@ export const news: NewsArticle[] = [
     category: "Announcement",
     date: "2026-02-04",
     featured: true,
+    image: "/images/news/partners.jpg",
     body: [
       "We're proud to welcome a refined partner suite for 2026—brands that match our standard for craft and performance.",
       "Together we'll elevate matchday presentation, athlete support, and community programming.",
@@ -94,6 +98,7 @@ export const news: NewsArticle[] = [
       "Two weeks of packed review, scrims, and quiet dinners that forge trust.",
     category: "Announcement",
     date: "2026-05-12",
+    image: "/images/news/bootcamp.jpg",
     body: [
       "Our Tokyo bootcamp locked the Stage 2 playbook—defaults, executions, and economy discipline on every map.",
       "Players cited the quiet focus of the facility as a competitive advantage.",
@@ -106,6 +111,7 @@ export const news: NewsArticle[] = [
       "A hard-fought exit—and a clearer path for the LoL division ahead.",
     category: "Match",
     date: "2025-09-02",
+    image: "/images/news/pcs.jpg",
     body: [
       "Falling in the PCS Semifinals hurt. It also clarified exactly where Kyoto's LoL division will improve.",
       "Nova's mid presence remained elite; the next step is earlier skirmish coordination across the map.",

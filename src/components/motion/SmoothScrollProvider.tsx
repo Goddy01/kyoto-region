@@ -21,7 +21,16 @@ export function SmoothScrollProvider({
   if (!enabled) return <>{children}</>;
 
   return (
-    <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true }}>
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.065,
+        duration: 1.4,
+        smoothWheel: true,
+        wheelMultiplier: 0.9,
+        touchMultiplier: 1.1,
+      }}
+    >
       {children}
     </ReactLenis>
   );

@@ -63,6 +63,7 @@ export type NewsArticle = {
   date: string;
   featured?: boolean;
   body: string[];
+  image: string;
 };
 
 export type Partner = {

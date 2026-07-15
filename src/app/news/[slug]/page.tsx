@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -24,9 +25,8 @@ export default async function NewsArticlePage({ params }: Props) {
   if (!article) notFound();
 
   return (
-    <article className="pt-32 pb-24 md:pt-40">
-      <div className="sakura-glow absolute inset-x-0 top-0 h-[40vh]" />
-      <div className="relative mx-auto max-w-3xl px-6 lg:px-8">
+    <article className="pt-28 pb-24 md:pt-32">
+      <div className="relative mx-auto max-w-4xl px-6 lg:px-8">
         <FadeUp>
           <Link
             href="/news"
@@ -43,9 +43,24 @@ export default async function NewsArticlePage({ params }: Props) {
           </h1>
           <p className="mt-6 text-lg text-muted">{article.excerpt}</p>
         </FadeUp>
-        <FadeUp delay={0.1} className="mt-12 space-y-6 border-t border-white/10 pt-12">
+
+        <FadeUp delay={0.08} className="relative mt-10 aspect-[16/9] overflow-hidden border border-white/10">
+          <Image
+            src={article.image}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 896px"
+            className="object-cover"
+          />
+        </FadeUp>
+
+        <FadeUp delay={0.12} className="mx-auto mt-12 max-w-3xl space-y-6 border-t border-white/10 pt-12">
           {article.body.map((para) => (
-            <p key={para} className="text-base leading-relaxed text-foreground/85 md:text-lg">
+            <p
+              key={para}
+              className="text-base leading-relaxed text-foreground/85 md:text-lg"
+            >
               {para}
             </p>
           ))}

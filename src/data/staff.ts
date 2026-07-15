@@ -8,6 +8,7 @@ export const staff: StaffMember[] = [
     category: "owners",
     bio: "Built Kyoto Region to prove that elegance and aggression can share the same roster.",
     monogram: "AM",
+    image: "/images/staff/akira.jpg",
   },
   {
     id: "lia",
@@ -16,6 +17,7 @@ export const staff: StaffMember[] = [
     category: "owners",
     bio: "Operator behind the scenes—capital, culture, and competitive ambition in balance.",
     monogram: "LC",
+    image: "/images/staff/lia.jpg",
   },
   {
     id: "marcus",
@@ -24,6 +26,7 @@ export const staff: StaffMember[] = [
     category: "management",
     bio: "Connects performance staff, partners, and talent pipelines across Pacific and EMEA.",
     monogram: "MW",
+    image: "/images/staff/marcus.jpg",
   },
   {
     id: "hana",
@@ -32,6 +35,7 @@ export const staff: StaffMember[] = [
     category: "management",
     bio: "Keeps travel, schedules, and bootcamps invisible so players can stay sharp.",
     monogram: "HF",
+    image: "/images/staff/hana.jpg",
   },
   {
     id: "shin",
@@ -40,6 +44,7 @@ export const staff: StaffMember[] = [
     category: "coaches",
     bio: "System-first coach with a preference for disciplined defaults and violent mid-rounds.",
     monogram: "SO",
+    image: "/images/staff/shin.jpg",
   },
   {
     id: "jade",
@@ -48,6 +53,7 @@ export const staff: StaffMember[] = [
     category: "coaches",
     bio: "VOD obsessive. Turns tape into edge before opponents notice the pattern.",
     monogram: "JK",
+    image: "/images/staff/jade.jpg",
   },
   {
     id: "ren",
@@ -56,6 +62,7 @@ export const staff: StaffMember[] = [
     category: "designers",
     bio: "Crafts Kyoto's visual language—ink, sakura, and steel.",
     monogram: "RY",
+    image: "/images/staff/ren.jpg",
   },
   {
     id: "sofia",
@@ -64,6 +71,7 @@ export const staff: StaffMember[] = [
     category: "designers",
     bio: "Signature intros, match graphics, and brand films that feel like cinema.",
     monogram: "SR",
+    image: "/images/staff/sofia.jpg",
   },
   {
     id: "kai",
@@ -72,6 +80,7 @@ export const staff: StaffMember[] = [
     category: "editors",
     bio: "Highlights cut like trailers—tight, emotional, unforgettable.",
     monogram: "KN",
+    image: "/images/staff/kai.jpg",
   },
   {
     id: "mira",
@@ -80,6 +89,7 @@ export const staff: StaffMember[] = [
     category: "editors",
     bio: "Shapes long-form docs and weekly drop packages for the community.",
     monogram: "MS",
+    image: "/images/staff/mira.jpg",
   },
   {
     id: "otto",
@@ -88,6 +98,7 @@ export const staff: StaffMember[] = [
     category: "moderators",
     bio: "Guards the Discord so the culture stays sharp without going toxic.",
     monogram: "OB",
+    image: "/images/staff/otto.jpg",
   },
   {
     id: "yui",
@@ -96,6 +107,7 @@ export const staff: StaffMember[] = [
     category: "moderators",
     bio: "First responder for events, giveaways, and fan welcomes.",
     monogram: "YT",
+    image: "/images/staff/yui.jpg",
   },
 ];
 

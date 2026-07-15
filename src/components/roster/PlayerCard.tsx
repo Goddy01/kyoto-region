@@ -1,33 +1,57 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Player } from "@/data/types";
 import { cn } from "@/lib/cn";
+import { easeExpoOut } from "@/lib/motion";
 
 export function PlayerCard({ player }: { player: Player }) {
+  const reduce = useReducedMotion();
+
   return (
+    <motion.div
+      whileHover={
+        reduce
+          ? undefined
+          : {
+              y: -10,
+              transition: { duration: 0.55, ease: easeExpoOut },
+            }
+      }
+    >
     <Link
       href={`/roster/${player.slug}`}
       className={cn(
-        "group glass relative block overflow-hidden transition-all duration-500",
-        "hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-[0_20px_60px_-30px_rgba(255,79,139,0.45)]",
+        "group glass relative block overflow-hidden",
+        "hover:border-accent/50 hover:shadow-[0_24px_70px_-28px_rgba(255,79,139,0.55)]",
       )}
     >
-      <div
-        className="relative flex h-72 items-end p-6 md:h-80"
-        style={{
-          background: `linear-gradient(165deg, ${player.accent}40 0%, #111111 45%, #050505 100%)`,
-        }}
-      >
-        <span
+      <div className="relative flex h-72 items-end overflow-hidden md:h-80">
+        <Image
+          src={player.image}
+          alt={`${player.name} — ${player.role}`}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div
           aria-hidden
-          className="font-display absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[9rem] leading-none text-white/[0.06] transition-transform duration-700 group-hover:scale-110"
-        >
-          {player.monogram}
-        </span>
+          className="absolute inset-0 bg-gradient-to-t from-bg via-bg/55 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-40 mix-blend-soft-light"
+          style={{
+            background: `linear-gradient(165deg, ${player.accent}66 0%, transparent 55%)`,
+          }}
+        />
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100"
         />
-        <div className="relative z-10 w-full">
+        <div className="relative z-10 w-full p-6">
           <div className="flex items-center justify-between gap-3">
             <p className="text-xs tracking-[0.22em] text-accent uppercase">
               {player.role}
@@ -41,5 +65,6 @@ export function PlayerCard({ player }: { player: Player }) {
         </div>
       </div>
     </Link>
+    </motion.div>
   );
 }

@@ -99,9 +99,13 @@ body {
   font-size: clamp(4.5rem, 16vw, 11rem);
   font-weight: 400;
   line-height: 0.9;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
+  transform: scaleX(1.12);
+  transform-origin: center;
+  width: min(100%, 56rem);
+  max-width: 100%;
 }
 
 /* Chrome / gloss display type */

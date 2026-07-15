@@ -89,9 +89,12 @@ export function Hero() {
             EST 2026
           </motion.p>
 
-          <h1 className="hero-title text-foreground">
+          <h1 className="hero-title mx-auto text-foreground">
             {["KYOTO", "REGION"].map((word, wi) => (
-              <span key={word} className="block overflow-hidden pb-[0.04em]">
+              <span
+                key={word}
+                className="block overflow-hidden pb-[0.04em] pr-[0.18em]"
+              >
                 <motion.span
                   className="inline-block will-change-transform"
                   initial={reduce ? false : { y: "115%", opacity: 0 }}

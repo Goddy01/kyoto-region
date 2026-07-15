@@ -3,7 +3,6 @@ import {
   HomeAchievements,
   HomeAnnouncement,
   HomeRosterTeaser,
-  HomeStats,
 } from "@/components/home/HomeSections";
 import { RitualScroll } from "@/components/home/RitualScroll";
 import { Marquee } from "@/components/motion/Marquee";
@@ -23,7 +22,6 @@ export default function HomePage() {
         ]}
         speed={35}
       />
-      <HomeStats />
       <RitualScroll />
       <Marquee
         items={[

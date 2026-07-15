@@ -51,7 +51,7 @@ export function RitualScroll() {
   );
 
   return (
-    <section ref={ref} className="relative h-[300vh] bg-bg">
+    <section ref={ref} id="philosophy" className="relative h-[300vh] bg-bg">
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
         <div className="mx-auto mb-10 w-full max-w-7xl px-6 lg:px-8">
           <FadeUp>

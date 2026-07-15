@@ -1,0 +1,104 @@
+import type { Player } from "./types";
+
+export const players: Player[] = [
+  {
+    slug: "hinata",
+    name: "Hinata",
+    realName: "Aya Nakamura",
+    role: "Duelist",
+    game: "VALORANT",
+    nationality: "JP",
+    bio: "Explosive entry fragger with surgical timing. Hinata opens sites like calligraphy—decisive strokes, zero hesitation.",
+    achievements: ["VCT Pacific Top 8", "Challengers Champion 2026", "1st All-Star Duelist"],
+    socials: [
+      { platform: "twitter", url: "https://x.com/kyotoregion" },
+      { platform: "twitch", url: "https://twitch.tv/kyotoregion" },
+    ],
+    monogram: "H",
+    accent: "#FF4F8B",
+  },
+  {
+    slug: "kensho",
+    name: "Kensho",
+    realName: "Kenji Sato",
+    role: "Controller",
+    game: "VALORANT",
+    nationality: "JP",
+    bio: "The team's metronome. Kensho crafts space with patience and punishes ego with silence.",
+    achievements: ["VCT Pacific Top 8", "Most Assists — Challengers Finals", "IGL of the Split"],
+    socials: [
+      { platform: "twitter", url: "https://x.com/kyotoregion" },
+      { platform: "youtube", url: "https://youtube.com/@kyotoregion" },
+    ],
+    monogram: "K",
+    accent: "#D81B60",
+  },
+  {
+    slug: "mizu",
+    name: "Mizu",
+    realName: "Sora Watanabe",
+    role: "Sentinel",
+    game: "VALORANT",
+    nationality: "JP",
+    bio: "Anchor of Kyoto's defense. Mizu turns locked sites into rituals opponents refuse to walk into twice.",
+    achievements: ["Challengers Champion 2026", "Lowest Deaths — Regional Split"],
+    socials: [
+      { platform: "twitter", url: "https://x.com/kyotoregion" },
+      { platform: "instagram", url: "https://instagram.com/kyotoregion" },
+    ],
+    monogram: "M",
+    accent: "#FF7AAF",
+  },
+  {
+    slug: "ryo",
+    name: "Ryo",
+    realName: "Ryo Takahashi",
+    role: "Initiator",
+    game: "VALORANT",
+    nationality: "KR",
+    bio: "Information is Ryo's weapon. Flashes, drones, and calls arrive a half-second early—every round.",
+    achievements: ["VCT Pacific Top 8", "MVP — Invitationals"],
+    socials: [
+      { platform: "twitter", url: "https://x.com/kyotoregion" },
+      { platform: "twitch", url: "https://twitch.tv/kyotoregion" },
+    ],
+    monogram: "R",
+    accent: "#FF4F8B",
+  },
+  {
+    slug: "yugen",
+    name: "Yugen",
+    realName: "Min-jun Park",
+    role: "Flex",
+    game: "VALORANT",
+    nationality: "KR",
+    bio: "Adaptive threat across the agent pool. Yugen fills gaps before they become losses.",
+    achievements: ["Challengers Champion 2026", "Clutch Master — Pacific Cup"],
+    socials: [
+      { platform: "twitter", url: "https://x.com/kyotoregion" },
+      { platform: "youtube", url: "https://youtube.com/@kyotoregion" },
+    ],
+    monogram: "Y",
+    accent: "#E91E63",
+  },
+  {
+    slug: "nova",
+    name: "Nova",
+    realName: "Elena Reyes",
+    role: "Mid Lane",
+    game: "League of Legends",
+    nationality: "PH",
+    bio: "Kyoto's LoL pillar. Nova dictates tempo with grace under pressure and a mid-lane presence opponents study.",
+    achievements: ["PCS Playoffs Semifinalist", "Regional All-Pro Mid"],
+    socials: [
+      { platform: "twitter", url: "https://x.com/kyotoregion" },
+      { platform: "twitch", url: "https://twitch.tv/kyotoregion" },
+    ],
+    monogram: "N",
+    accent: "#FF4F8B",
+  },
+];
+
+export function getPlayer(slug: string) {
+  return players.find((p) => p.slug === slug);
+}

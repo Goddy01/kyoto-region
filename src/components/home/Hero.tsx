@@ -89,11 +89,11 @@ export function Hero() {
             EST 2026
           </motion.p>
 
-          <h1 className="hero-title text-foreground">
+          <h1 className="hero-title">
             {["KYOTO", "REGION"].map((word, wi) => (
               <span key={word} className="block overflow-hidden pb-[0.04em]">
                 <motion.span
-                  className="inline-block will-change-transform"
+                  className="gloss-shine inline-block will-change-transform"
                   initial={reduce ? false : { y: "115%", opacity: 0 }}
                   animate={{ y: "0%", opacity: 1 }}
                   transition={{
@@ -102,11 +102,13 @@ export function Hero() {
                     ease: easeExpoOut,
                   }}
                 >
-                  {wi === 1 ? (
-                    <span className="gradient-text">{word}</span>
-                  ) : (
-                    word
-                  )}
+                  <span
+                    className={
+                      wi === 1 ? "gloss-text-accent" : "gloss-text"
+                    }
+                  >
+                    {word}
+                  </span>
                 </motion.span>
               </span>
             ))}
@@ -125,12 +127,16 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9, ease: easeExpoOut }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-10 md:gap-4"
+            className="glass-glossy mt-8 flex flex-wrap items-center justify-center gap-3 px-5 py-4 md:mt-10 md:gap-4"
           >
-            <Button href="/recruitment" variant="primary">
+            <Button href="/recruitment" variant="primary" className="btn-glossy border-0">
               Join Kyoto Region
             </Button>
-            <Button href="/roster" variant="secondary">
+            <Button
+              href="/roster"
+              variant="secondary"
+              className="btn-glossy-secondary"
+            >
               View Team
             </Button>
           </motion.div>

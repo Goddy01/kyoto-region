@@ -52,9 +52,10 @@ export function Button({
 
   const styles = cn(
     "relative inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-medium tracking-wide transition-colors duration-300",
-    variant === "primary" && "bg-accent text-white hover:bg-accent-deep overflow-hidden",
+    variant === "primary" &&
+      "bg-accent text-white hover:bg-accent-deep overflow-hidden btn-glossy",
     variant === "secondary" &&
-      "border border-white/20 bg-transparent text-foreground hover:border-accent hover:text-accent",
+      "border border-white/20 bg-transparent text-foreground hover:border-accent hover:text-accent btn-glossy-secondary",
     variant === "ghost" && "text-muted hover:text-foreground px-3 py-2",
     className,
   );
@@ -69,10 +70,14 @@ export function Button({
 
   const content = (
     <>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent opacity-80"
+      />
       {variant === "primary" && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
         />
       )}
       <span className="relative z-10">{children}</span>

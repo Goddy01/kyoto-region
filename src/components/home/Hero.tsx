@@ -18,7 +18,7 @@ export function Hero() {
   });
   const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const mediaY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   return (
     <section
@@ -27,25 +27,39 @@ export function Hero() {
     >
       <div className="absolute inset-0 bg-bg">
         <motion.div
-          style={reduce ? undefined : { y: imageY }}
+          style={reduce ? undefined : { y: mediaY }}
           className="absolute inset-0 scale-105"
         >
-          <Image
-            src="/images/hero/banner.png"
-            alt="Kyoto Region — EST 2026"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
+          {reduce ? (
+            <Image
+              src="/images/hero/banner.png"
+              alt="Kyoto Region — EST 2026"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          ) : (
+            <video
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster="/images/hero/banner.png"
+              aria-hidden
+            >
+              <source src="/videos/1st.mp4" type="video/mp4" />
+            </video>
+          )}
         </motion.div>
 
-        {/* Soft readability veil — keep banner artwork dominant */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.15) 35%, rgba(5,5,5,0.35) 70%, rgba(5,5,5,0.92) 100%)",
+              "linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.2) 40%, rgba(5,5,5,0.4) 70%, rgba(5,5,5,0.92) 100%)",
           }}
         />
         <div

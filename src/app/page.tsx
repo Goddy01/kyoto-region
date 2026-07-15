@@ -23,18 +23,6 @@ export default function HomePage() {
         speed={35}
       />
       <RitualScroll />
-      <Marquee
-        items={[
-          "Restraint",
-          "Bloom",
-          "Bond",
-          "Peak",
-          "侍の道",
-          "Hardware earned",
-        ]}
-        speed={42}
-        reverse
-      />
       <HomeAchievements />
       <HomeAnnouncement />
       <HomeRosterTeaser />

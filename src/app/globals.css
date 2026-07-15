@@ -11,9 +11,9 @@
   --border: rgba(255, 255, 255, 0.08);
   --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-quart-out: cubic-bezier(0.25, 1, 0.5, 1);
-  --text-display-xl: clamp(3.5rem, 11vw, 9rem);
-  --text-display-lg: clamp(2.5rem, 6vw, 4.5rem);
-  --text-display-md: clamp(1.75rem, 3.5vw, 2.75rem);
+  --text-display-xl: clamp(4rem, 13vw, 10.5rem);
+  --text-display-lg: clamp(2.75rem, 6.5vw, 5rem);
+  --text-display-md: clamp(1.85rem, 3.8vw, 3rem);
   --text-body: 1.0625rem;
 }
 
@@ -27,7 +27,8 @@
   --color-accent-deep: var(--accent-deep);
   --color-border: var(--border);
   --font-sans: var(--font-geist);
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-outfit);
+  --font-hero: var(--font-bebas);
 }
 
 * {
@@ -68,20 +69,21 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-space-grotesk), var(--font-geist), sans-serif;
+  font-family: var(--font-outfit), var(--font-geist), sans-serif;
+  font-optical-sizing: auto;
 }
 
 .text-display-xl {
   font-size: var(--text-display-xl);
   line-height: 0.92;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   font-weight: 700;
 }
 
 .text-display-lg {
   font-size: var(--text-display-lg);
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   font-weight: 700;
 }
 
@@ -92,8 +94,24 @@ body {
   font-weight: 600;
 }
 
+.hero-title {
+  font-family: var(--font-bebas), var(--font-outfit), sans-serif;
+  font-size: clamp(4.5rem, 16vw, 11rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+}
+
 .gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #ff4f8b 55%, #d81b60 100%);
+  background: linear-gradient(
+    115deg,
+    #ffffff 8%,
+    #ffb3ce 32%,
+    #ff4f8b 58%,
+    #d81b60 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

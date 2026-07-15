@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Geist } from "next/font/google";
+import { Bebas_Neue, Outfit, Geist } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 import { IntroLoader } from "@/components/motion/IntroLoader";
@@ -8,10 +8,16 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { siteConfig } from "@/data/site";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "400",
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 const geist = Geist({
@@ -46,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-bg">
       <body
-        className={`${spaceGrotesk.variable} ${geist.variable} min-h-screen bg-bg font-sans text-foreground antialiased`}
+        className={`${bebasNeue.variable} ${outfit.variable} ${geist.variable} min-h-screen bg-bg font-sans text-foreground antialiased`}
       >
         <SmoothScrollProvider>
           <IntroLoader />

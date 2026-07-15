@@ -23,8 +23,9 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-end overflow-hidden pb-16 md:items-end md:pb-24"
+      className="relative isolate min-h-[100svh] overflow-hidden"
     >
+      {/* Background media */}
       <div className="absolute inset-0 bg-bg">
         <motion.div
           style={reduce ? undefined : { y: mediaY }}
@@ -37,11 +38,11 @@ export function Hero() {
               fill
               priority
               sizes="100vw"
-              className="object-cover object-center"
+              className="object-cover object-[center_35%]"
             />
           ) : (
             <video
-              className="absolute inset-0 h-full w-full object-cover object-center"
+              className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
               autoPlay
               muted
               loop
@@ -55,72 +56,121 @@ export function Hero() {
           )}
         </motion.div>
 
+        {/* Asymmetric veil — keep right/center of video breathing */}
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.2) 40%, rgba(5,5,5,0.4) 70%, rgba(5,5,5,0.92) 100%)",
+            background: `
+              linear-gradient(105deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.55) 38%, rgba(5,5,5,0.2) 62%, rgba(5,5,5,0.45) 100%),
+              linear-gradient(180deg, rgba(5,5,5,0.5) 0%, transparent 28%, transparent 58%, rgba(5,5,5,0.92) 100%)
+            `,
           }}
         />
         <div
           aria-hidden
-          className="animate-pulse-glow absolute top-1/3 left-1/2 h-[50vw] w-[50vw] max-h-[520px] max-w-[520px] -translate-x-1/2 rounded-full bg-accent/15 blur-[130px]"
+          className="animate-pulse-glow absolute top-[28%] left-[18%] h-[42vw] w-[42vw] max-h-[420px] max-w-[420px] rounded-full bg-accent/12 blur-[120px]"
         />
-        <div
-          aria-hidden
-          className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-accent/50 to-transparent"
-        />
-        <SakuraParticles count={10} className="opacity-70" />
+        <SakuraParticles count={10} className="opacity-60" />
       </div>
 
+      {/* Content grid */}
       <motion.div
         style={reduce ? undefined : { y, opacity }}
-        className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-28 lg:px-8"
+        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col px-6 pt-28 pb-10 md:pt-32 md:pb-12 lg:px-8"
       >
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: easeExpoOut }}
-          className="mb-5 text-xs font-medium tracking-[0.32em] text-accent uppercase"
-        >
-          零 · Chapter 00 · Enter the region
-        </motion.p>
+        {/* Top meta row */}
+        <div className="mb-auto flex items-start justify-between gap-6">
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: easeExpoOut }}
+            className="text-[10px] font-medium tracking-[0.36em] text-accent uppercase md:text-xs"
+          >
+            零 · Chapter 00 · Enter the region
+          </motion.p>
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: easeExpoOut }}
+            className="hidden text-[10px] tracking-[0.28em] text-muted uppercase sm:block md:text-xs"
+          >
+            EST 2026
+          </motion.p>
+        </div>
 
-        <h1 className="sr-only">Kyoto Region</h1>
+        {/* Primary content block — lower-left composition */}
+        <div className="mt-16 max-w-3xl md:mt-0 md:max-w-[min(100%,52rem)] lg:pb-6">
+          <h1 className="hero-title text-foreground">
+            {["KYOTO", "REGION"].map((word, wi) => (
+              <span
+                key={word}
+                className="block overflow-hidden pb-[0.04em]"
+              >
+                <motion.span
+                  className="inline-block will-change-transform"
+                  initial={reduce ? false : { y: "115%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  transition={{
+                    duration: 1.2,
+                    delay: 0.35 + wi * 0.14,
+                    ease: easeExpoOut,
+                  }}
+                >
+                  {wi === 1 ? (
+                    <span className="gradient-text">{word}</span>
+                  ) : (
+                    word
+                  )}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
 
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 24, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.9, delay: 0.35, ease: easeExpoOut }}
-          className="font-display max-w-xl text-2xl tracking-tight text-foreground md:text-4xl"
-        >
-          {siteConfig.tagline}
-        </motion.p>
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.9, delay: 0.7, ease: easeExpoOut }}
+            className="mt-6 max-w-md text-base leading-relaxed text-muted md:mt-8 md:max-w-lg md:text-lg"
+          >
+            {siteConfig.tagline}
+          </motion.p>
 
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: easeExpoOut }}
-          className="mt-10 flex flex-wrap gap-4"
-        >
-          <Button href="/recruitment" variant="primary">
-            Join Kyoto Region
-          </Button>
-          <Button href="/roster" variant="secondary">
-            View Team
-          </Button>
-        </motion.div>
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.9, ease: easeExpoOut }}
+            className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4"
+          >
+            <Button href="/recruitment" variant="primary">
+              Join Kyoto Region
+            </Button>
+            <Button href="/roster" variant="secondary">
+              View Team
+            </Button>
+          </motion.div>
+        </div>
 
-        <motion.a
-          href="#stats"
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.95, duration: 0.6, ease: easeExpoOut }}
-          className="animate-scroll-cue mt-14 inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
-        >
-          Scroll
-          <ChevronDown size={14} className="text-accent" />
-        </motion.a>
+        {/* Bottom rail */}
+        <div className="mt-14 flex items-end justify-between border-t border-white/10 pt-6 md:mt-16">
+          <motion.p
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.05, duration: 0.6, ease: easeExpoOut }}
+            className="hidden text-[10px] tracking-[0.24em] text-muted uppercase md:block"
+          >
+            Precision in bloom
+          </motion.p>
+          <motion.a
+            href="#stats"
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.15, duration: 0.6, ease: easeExpoOut }}
+            className="animate-scroll-cue ml-auto inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
+          >
+            Scroll
+            <ChevronDown size={14} className="text-accent" />
+          </motion.a>
+        </div>
       </motion.div>
     </section>
   );

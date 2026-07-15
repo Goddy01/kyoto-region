@@ -66,32 +66,35 @@ export function RitualScroll() {
           />
         </div>
 
-        <motion.div style={{ x }} className="flex w-max gap-6 px-6 lg:px-8">
-          {movements.map((m, i) => (
-            <article
-              key={m.kanji}
-              className="glass relative flex h-[48vh] w-[78vw] max-w-[420px] shrink-0 flex-col justify-between overflow-hidden p-8 md:h-[52vh] md:w-[38vw] md:p-10"
-            >
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -right-6 -bottom-10 font-display text-[9rem] leading-none text-accent/10 md:text-[12rem]"
+        {/* Same left rail as the title (max-w-7xl + padding); track bleeds right */}
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <motion.div style={{ x }} className="flex w-max gap-6">
+            {movements.map((m, i) => (
+              <article
+                key={m.kanji}
+                className="glass relative flex h-[48vh] w-[78vw] max-w-[420px] shrink-0 flex-col justify-between overflow-hidden p-8 md:h-[52vh] md:w-[38vw] md:p-10"
               >
-                {m.kanji}
-              </div>
-              <div>
-                <p className="text-[10px] tracking-[0.28em] text-accent uppercase">
-                  0{i + 1} · {m.label}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-6 -bottom-10 font-display text-[9rem] leading-none text-accent/10 md:text-[12rem]"
+                >
+                  {m.kanji}
+                </div>
+                <div>
+                  <p className="text-[10px] tracking-[0.28em] text-accent uppercase">
+                    0{i + 1} · {m.label}
+                  </p>
+                  <h3 className="font-display mt-6 text-3xl tracking-tight md:text-4xl">
+                    {m.title}
+                  </h3>
+                </div>
+                <p className="relative max-w-sm text-sm leading-relaxed text-muted md:text-base">
+                  {m.body}
                 </p>
-                <h3 className="font-display mt-6 text-3xl tracking-tight md:text-4xl">
-                  {m.title}
-                </h3>
-              </div>
-              <p className="relative max-w-sm text-sm leading-relaxed text-muted md:text-base">
-                {m.body}
-              </p>
-            </article>
-          ))}
-        </motion.div>
+              </article>
+            ))}
+          </motion.div>
+        </div>
 
         <div className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
           <div className="h-px w-full bg-white/10">

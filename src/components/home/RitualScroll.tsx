@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -38,17 +38,32 @@ const movements = [
 
 export function RitualScroll() {
   const ref = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  const [travel, setTravel] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduce ? ["0%", "0%"] : ["0%", "-75%"],
-  );
+  useEffect(() => {
+    const measure = () => {
+      if (!railRef.current || !trackRef.current) return;
+      const next = Math.max(
+        0,
+        trackRef.current.scrollWidth - railRef.current.clientWidth,
+      );
+      setTravel(next);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  const x = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -travel]);
 
   return (
     <section ref={ref} id="philosophy" className="relative h-[300vh] bg-bg">
@@ -66,13 +81,16 @@ export function RitualScroll() {
           />
         </div>
 
-        {/* Same left rail as the title (max-w-7xl + padding); track bleeds right */}
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-          <motion.div style={{ x }} className="flex w-max gap-6">
+        {/* Same left + right rail as the title */}
+        <div
+          ref={railRef}
+          className="mx-auto w-full max-w-7xl overflow-hidden px-6 lg:px-8"
+        >
+          <motion.div ref={trackRef} style={{ x }} className="flex w-max gap-6">
             {movements.map((m, i) => (
               <article
                 key={m.kanji}
-                className="glass relative flex h-[48vh] w-[78vw] max-w-[420px] shrink-0 flex-col justify-between overflow-hidden p-8 md:h-[52vh] md:w-[38vw] md:p-10"
+                className="glass relative flex h-[48vh] w-[min(78vw,420px)] shrink-0 flex-col justify-between overflow-hidden p-8 md:h-[52vh] md:w-[min(38vw,420px)] md:p-10"
               >
                 <div
                   aria-hidden

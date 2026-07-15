@@ -70,25 +70,7 @@ export function Hero() {
         style={reduce ? undefined : { y, opacity }}
         className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col items-center px-6 pt-28 pb-10 text-center md:pt-32 md:pb-12 lg:px-8"
       >
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: easeExpoOut }}
-          className="text-[10px] font-medium tracking-[0.36em] text-accent uppercase md:text-xs"
-        >
-          零 · Chapter 00 · Enter the region
-        </motion.p>
-
         <div className="flex flex-1 flex-col items-center justify-center py-10 md:py-12">
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.28, ease: easeExpoOut }}
-            className="mb-5 text-[10px] tracking-[0.32em] text-muted uppercase md:text-xs"
-          >
-            EST 2026
-          </motion.p>
-
           <h1 className="hero-title mx-auto text-foreground">
             {["KYOTO", "REGION"].map((word, wi) => (
               <span
@@ -101,7 +83,7 @@ export function Hero() {
                   animate={{ y: "0%", opacity: 1 }}
                   transition={{
                     duration: 1.2,
-                    delay: 0.35 + wi * 0.14,
+                    delay: 0.25 + wi * 0.14,
                     ease: easeExpoOut,
                   }}
                 >
@@ -114,7 +96,7 @@ export function Hero() {
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 20, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, delay: 0.7, ease: easeExpoOut }}
+            transition={{ duration: 0.9, delay: 0.55, ease: easeExpoOut }}
             className="mx-auto mt-6 max-w-md text-base leading-relaxed text-muted md:mt-8 md:max-w-lg md:text-lg"
           >
             {siteConfig.tagline}
@@ -123,7 +105,7 @@ export function Hero() {
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.9, ease: easeExpoOut }}
+            transition={{ duration: 0.7, delay: 0.75, ease: easeExpoOut }}
             className="mt-8 md:mt-10"
           >
             <Button href="/recruitment" variant="primary">
@@ -136,7 +118,7 @@ export function Hero() {
           href="#stats"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.15, duration: 0.6, ease: easeExpoOut }}
+          transition={{ delay: 1, duration: 0.6, ease: easeExpoOut }}
           className="animate-scroll-cue inline-flex items-center gap-2 text-xs tracking-[0.24em] text-muted uppercase"
         >
           Scroll
